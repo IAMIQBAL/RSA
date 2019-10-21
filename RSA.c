@@ -32,18 +32,16 @@ int main(){
         enc[i] = equationPowMod(s[i], e, n);
         printf("Encrypted: %d\n", enc[i]);
     }
+    writeFile(enc, strlen(word));
+
+    long int data[strlen(word)];
+    readFile(strlen(word), data);
 
     for (int i = 0; i < strlen(word); i++){
-        dec = equationPowMod(enc[i], d, n);
-        printf("Decrypted: %c\n", dec);
+        // dec = equationPowMod(data[i], d, n);
+        // printf("Decrypted: %c\n", dec);
+        printf("%d\n", data[i]);
     }
-    // printf("Encrypted: %d\n", text);
-
-    // int dec;
-
-    // dec = equationPowMod(text, d, n);
-    // printf("Decrypted: %c\n", dec);
-
 
     return 0;
 }

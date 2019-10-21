@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int calculatePHIN(int p, int q);
 int isPrime(int n);
 int getGCD(int x, int y);
-void readFile(char name[]);
-void writeFile(char name[]);
+void readFile(int size, long int data[]);
+void writeFile(int data[], int size);
 void encExponent(int p, int q, int *keys);
 int decExponent(int e, int phin);
 void genKeys(int p, int q, int keys[]);
@@ -92,10 +93,29 @@ int equationPowMod(int a, int b, int n) {
 	return x % n;
 }
 
-void readFile(char name[]){
+void readFile(int size, long int data[]){
+    FILE * fpointer;
 
+    fpointer = fopen("encrypted.txt", "r");
+    char sen[size];
+    while (!feof(fpointer)){
+        fgets(sen, size, fpointer);
+        puts(sen);
+    }
+    for (int i = 0; i < size; i++){
+        data[i] = sen[i];
+    }
+    fclose(fpointer);
 }
 
-void writeFile(char name[]){
+void writeFile(int data[], int size){
 
+    FILE * fpointer;
+    fpointer = fopen("encrypted.txt", "w");
+    
+    for (int i = 0; i < size;i++){
+        fprintf(fpointer, "%d\n",data[i]);
+    }
+
+    fclose(fpointer);
 }
