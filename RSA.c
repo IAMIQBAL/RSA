@@ -34,13 +34,13 @@ int main(){
     }
     writeFile(enc, strlen(word));
 
-    long int data[strlen(word)];
-    readFile(strlen(word), data);
+    int data[100];
+    readFile(data);
 
+    printf("Decrypted: ");
     for (int i = 0; i < strlen(word); i++){
-        // dec = equationPowMod(data[i], d, n);
-        // printf("Decrypted: %c\n", dec);
-        printf("%d\n", data[i]);
+        dec = equationPowMod(data[i], d, n);
+        printf("%c", dec);
     }
 
     return 0;
