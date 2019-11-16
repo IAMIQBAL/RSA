@@ -8,8 +8,7 @@ int main(){
 
     int keys[4];
     genKeys(65537, 19, keys); // 5741,17,1
-    
-    
+
     int e = keys[0];
     int n = keys[1];
     int phin = keys[2];

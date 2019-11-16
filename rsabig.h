@@ -52,12 +52,15 @@ void calculatePHINBig(mpz_t p, mpz_t q, mpz_t phin){
 
 void genKeysBig(mpz_t p, mpz_t q, mpz_t e, mpz_t n, mpz_t phin){
 
+    //TODO
 }
 
 void decExponentBig(mpz_t e, mpz_t phin, mpz_t d){
 
+    //TODO
 }
 
 void eqnPowModBig(mpz_t a, mpz_t b, mpz_t n, mpz_t res){
 
+    //TODO
 }
