@@ -19,13 +19,11 @@ void encExponentBig(mpz_t p, mpz_t q, mpz_t e, mpz_t n, mpz_t phin){
     calculatePHINBig(p, q, phin);
 
     mp_size_t ph, eSize;
-    ph = 10;
+
     mpz_t randomE;
     mpz_init(randomE);
 
     mpz_random(randomE, ph);
-
-    // ph = mpz_size(phin);
 
     mpz_t gcd;
     mpz_init(gcd);

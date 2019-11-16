@@ -23,7 +23,7 @@ int isPrime(int n){
     }
     return 1;
 }
-
+ 
 void encExponent(int p, int q, int *keys){
     int range = 99999999;
     int n;
