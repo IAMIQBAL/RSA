@@ -11,6 +11,8 @@ void encExponent(int p, int q, int *keys);
 int decExponent(int e, int phin);
 void genKeys(int p, int q, int keys[]);
 int equationPowMod(int a, int b, int n);
+void writeBinFile(int data[], int size);
+void readBinFile(int data[], int size);
 
 int isPrime(int n){
     int m = n / 2;
@@ -29,7 +31,8 @@ void encExponent(int p, int q, int *keys){
     int phin = calculatePHIN(p, q);
     int e = 0; // Encryption key
     
-    for (e = 5; e<= range; e++){
+    // TODO Choose a random e that must be gcd
+    for (e = 2; e<= phin; e++){
         if (getGCD(phin, e) == 1){
             break;
         }
@@ -106,6 +109,8 @@ void readFile(int data[]){
     fclose(fpointer);
 }
 
+//TODO Make one function and add mode for filing
+
 void writeFile(int data[], int size){
 
     FILE * fpointer;
@@ -115,5 +120,30 @@ void writeFile(int data[], int size){
         fprintf(fpointer, "%d\n",data[i]);
     }
 
+    fclose(fpointer);
+}
+
+void writeBinFile(int data[], int size){
+
+    FILE * fpointer;
+    fpointer = fopen("encrypted.bin", "wb");
+
+    for (int i = 0; i < size; i++){
+        fwrite(&data[i], size, 1, fpointer);
+    }
+    fclose(fpointer);
+}
+
+void readBinFile(int data[], int size){
+    
+    FILE * fpointer;
+    fpointer = fopen("encrypted.bin", "wr");
+
+    int i = 0;
+    int num;
+    while (fread(&num, size, 1, fpointer)>0){
+        data[i] = num;
+        i++;
+    }
     fclose(fpointer);
 }
