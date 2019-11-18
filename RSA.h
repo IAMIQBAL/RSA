@@ -25,7 +25,7 @@ int isPrime(int n){
 }
 
 void encExponent(int p, int q, int *keys){
-    int range = 99999999;
+    int range = 2147483647;
     int n;
     n = p * q; // Public key here is n, whereas p and q are kept private
     int phin = calculatePHIN(p, q);
@@ -57,7 +57,7 @@ void genKeys(int p, int q, int keys[]){
 int decExponent(int e, int phin){
     
     int d = 0;
-    int range = 99999999;
+    int range = 2147483647;
     
     for (d = e + 1; d <= range; d++) {
 		if ( ((d * e) % phin) == 1)
