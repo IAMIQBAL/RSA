@@ -25,13 +25,11 @@ int isPrime(int n){
 }
 
 void encExponent(int p, int q, int *keys){
-    int range = 99999999;
     int n;
     n = p * q; // Public key here is n, whereas p and q are kept private
     int phin = calculatePHIN(p, q);
     int e = 0; // Encryption key
     
-    // TODO Choose a random e that must be gcd
     for (e = 2; e<= phin; e++){
         if (getGCD(phin, e) == 1){
             break;
@@ -57,12 +55,14 @@ void genKeys(int p, int q, int keys[]){
 int decExponent(int e, int phin){
     
     int d = 0;
-    int range = 99999999;
-    
-    for (d = e + 1; d <= range; d++) {
-		if ( ((d * e) % phin) == 1)
-			break;
-	}
+
+    d = e + 1;
+    while (1){
+        if ( ((d * e) % phin) == 1){
+            break;
+        }
+        d++;
+    }
 
     return d;
 }

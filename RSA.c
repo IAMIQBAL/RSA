@@ -8,7 +8,7 @@
 int main(){
 
     int keys[4];
-    genKeys(147483647, 14748369, keys); // 5741,17,1
+    genKeys(65537, 5741, keys); // 5741,17,1
 
     int e = keys[0];
     int n = keys[1];
@@ -55,7 +55,7 @@ int main(){
     mpz_t p, q, n1, e1, phin1, d1;
     mpz_t res, encL, decL, qx, lx;
 
-    mpz_init_set_str(p, "65537", 10);
+    mpz_init_set_str(p, "154970999998296990614563286631273506149", 10);
     mpz_init_set_str(q, "5741", 10);
     mpz_init(res);
     mpz_init_set_str(encL, "65", 10);
