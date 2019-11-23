@@ -6,8 +6,9 @@
 void calculatePHINBig(mpz_t p, mpz_t q, mpz_t phin);
 int isPrimeBig(mpz_t n);
 void encExponentBig(mpz_t p, mpz_t q, mpz_t e, mpz_t n, mpz_t phin);
-void decExponentBig(mpz_t e, mpz_t phin, mpz_t d);
+void decExponentBig(mpz_t e, mpz_t phin, mpz_t d, mpz_t n);
 void eqnPowModBig(mpz_t a, mpz_t b, mpz_t n, mpz_t x);
+void genKeysBig(mpz_t p, mpz_t q, mpz_t e, mpz_t n, mpz_t phin, mpz_t d);
 
 int isPrimeBig(mpz_t n){
     int isPrime = -1;
@@ -45,12 +46,13 @@ void calculatePHINBig(mpz_t p, mpz_t q, mpz_t phin){
     mpz_mul(phin,p,q);
 }
 
-void genKeysBig(mpz_t p, mpz_t q, mpz_t e, mpz_t n, mpz_t phin){
+void genKeysBig(mpz_t p, mpz_t q, mpz_t e, mpz_t n, mpz_t phin, mpz_t d){
 
-    //TODO
+    encExponentBig(p, q, e, n, phin);
+    decExponentBig(e, phin, d, p);
 }
 
-void decExponentBig(mpz_t e, mpz_t phin, mpz_t d){
+void decExponentBig(mpz_t e, mpz_t phin, mpz_t d, mpz_t p){
 
     mpz_set_ui(d, 0);
 
@@ -61,18 +63,8 @@ void decExponentBig(mpz_t e, mpz_t phin, mpz_t d){
     mpz_t dTemp;
     mpz_init(dTemp);
 
-    mpz_add_ui(d, e, 1);
-    
-    while (1){
-
-        mpz_mul(r, d, e);
-        mpz_mod(s, r, phin);
-        // gmp_printf("D: %Zd\n", s);
-        if (mpz_cmp_ui(s, 1) == 0){
-            break;
-        }
-        mpz_add_ui(d,d,1);
-    }
+    mpz_sub_ui(p, p, 1);
+    mpz_invert(d,e,phin);
 }
 
 void eqnPowModBig(mpz_t a, mpz_t b, mpz_t n, mpz_t x){

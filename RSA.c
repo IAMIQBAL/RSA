@@ -10,6 +10,10 @@ int main(){
     int keys[4];
     genKeys(65537, 5741, keys); // 5741,17,1
 
+    int arr[2];
+    arr[0] = 21;
+    arr[1] = 27;
+
     int e = keys[0];
     int n = keys[1];
     int phin = keys[2];
@@ -55,8 +59,9 @@ int main(){
     mpz_t p, q, n1, e1, phin1, d1;
     mpz_t res, encL, decL, qx, lx;
 
-    mpz_init_set_str(p, "154970999998296990614563286631273506149", 10);
-    mpz_init_set_str(q, "5741", 10);
+    // 128 bit prime
+    mpz_init_set_str(p, "48552962525444623306758594028804316966546241000198426809413353988758613146319", 10);
+    mpz_init_set_str(q, "40242743371890990858447090570121699416382150234809337003026322521020751020083", 10);
     mpz_init(res);
     mpz_init_set_str(encL, "65", 10);
     mpz_init(decL);
@@ -68,8 +73,8 @@ int main(){
     mpz_init(d1);
     
     encExponentBig(p, q, e1, n1, phin1);
-    decExponentBig(e1, phin1, d1);
-
+    decExponentBig(e1, phin1, d1, p);
+    // genKeysBig(p,q,e1,n1,phin1,d1);
 
     gmp_printf("p: %Zd\n", p);
     gmp_printf("q: %Zd\n", q);

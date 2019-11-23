@@ -8,11 +8,12 @@ int getGCD(int x, int y);
 void readFile(int data[]);
 void writeFile(int data[], int size);
 void encExponent(int p, int q, int *keys);
-int decExponent(int e, int phin);
+int decExponent(int e, int phin, int n);
 void genKeys(int p, int q, int keys[]);
 int equationPowMod(int a, int b, int n);
 void writeBinFile(int data[], int size);
 void readBinFile(int data[], int size);
+int euclidean(int arr[]);
 
 int isPrime(int n){
     int m = n / 2;
@@ -48,20 +49,24 @@ void genKeys(int p, int q, int keys[]){
     int n = keys[1];
     int phin = keys[2];
 
-    int d = decExponent(e, phin);
+    int d = decExponent(e, phin, n);
     keys[3] = d;
 }
 
-int decExponent(int e, int phin){
+int decExponent(int e, int phin, int n){
     
     int d = 0;
 
-    d = e + 1;
+    // d = e^-1 mod (phin)
+    // d * e = 1 mod (phin)
+    // d * e / mod phin = 1
+
+    d = n;
     while (1){
         if ( ((d * e) % phin) == 1){
             break;
         }
-        d++;
+        d--;
     }
 
     return d;
@@ -72,6 +77,22 @@ int calculatePHIN(int p, int q){
     return phin;
 }
 
+int euclidean(int arr[]){
+    int gcd = 0;
+    int arr2[2];
+    int temp = 0;
+
+    while (1){
+        if (arr2[0] != 0){
+            arr2[0] = arr[0] % arr[1];
+            arr[1] = arr[1];
+        } else {
+            break;
+        }
+    }
+    gcd = arr2[1];
+    return gcd;
+}
 
 int getGCD(int x, int y){
     int gcd = 0;
