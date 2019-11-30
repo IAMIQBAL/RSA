@@ -1,6 +1,4 @@
 #include <stdio.h>
-#include <string.h>
-#include <math.h>
 #include <gmp.h>
 
 void calculatePHINBig(mpz_t p, mpz_t q, mpz_t phin);
@@ -9,6 +7,9 @@ void encExponentBig(mpz_t p, mpz_t q, mpz_t e, mpz_t n, mpz_t phin);
 void decExponentBig(mpz_t e, mpz_t phin, mpz_t d, mpz_t n);
 void eqnPowModBig(mpz_t a, mpz_t b, mpz_t n, mpz_t x);
 void genKeysBig(mpz_t p, mpz_t q, mpz_t e, mpz_t n, mpz_t phin, mpz_t d);
+void printKeys(mpz_t n, mpz_t e,mpz_t phin ,mpz_t d);
+void initKeys(mpz_t p, mpz_t q, mpz_t n, mpz_t e, mpz_t phin, mpz_t d);
+void Decoder(FILE *file, int size, mpz_t n, mpz_t d);
 
 int isPrimeBig(mpz_t n){
     int isPrime = -1;
@@ -24,10 +25,10 @@ void encExponentBig(mpz_t p, mpz_t q, mpz_t e, mpz_t n, mpz_t phin){
     mpz_t gcd;
     mpz_init(gcd);
 
-    mpz_t one;
-    mpz_init_set_str(one, "1", 10);
+    mpz_t initE;
+    mpz_init_set_str(initE, "48552962525444623306758594028804316966546241000198426809413353988758613146319", 10);
 
-    for (mpz_set_ui(e, 2); mpz_cmp(e, phin) != 0; mpz_add_ui(e,e,1)){
+    for (mpz_set(e, initE); mpz_cmp(e, phin) != 0; mpz_add_ui(e,e,1)){
         mpz_gcd(gcd, phin, e);
         if(mpz_cmp_ui(gcd, 1) == 0){
             break;
@@ -54,25 +55,18 @@ void genKeysBig(mpz_t p, mpz_t q, mpz_t e, mpz_t n, mpz_t phin, mpz_t d){
 
 void decExponentBig(mpz_t e, mpz_t phin, mpz_t d, mpz_t p){
 
-    mpz_set_ui(d, 0);
-
-    mpz_t r, s, one;
-    mpz_init(r);
-    mpz_init(s);
-
-    mpz_t dTemp;
-    mpz_init(dTemp);
-
     mpz_sub_ui(p, p, 1);
-    mpz_invert(d,e,phin);
+    if (mpz_invert(d,e,phin) == 0){
+        printf("Invert does not exist\n");
+    }
 }
 
-void eqnPowModBig(mpz_t a, mpz_t b, mpz_t n, mpz_t x){
+void eqnPowModBig(mpz_t message, mpz_t b, mpz_t n, mpz_t x){
 
     mpz_t y, r, m, mm;
 
-    mpz_set_str(x, "1", 10);
-    mpz_set(y, a);
+    mpz_set_ui(x,1);
+    mpz_set(y, message);
     mpz_init(r);
     mpz_init(m);
 
@@ -86,4 +80,11 @@ void eqnPowModBig(mpz_t a, mpz_t b, mpz_t n, mpz_t x){
         mpz_div_ui(b,b,2);
     }
     mpz_mod(x, x,n);
+}
+
+void printKeys(mpz_t n, mpz_t e,mpz_t phin ,mpz_t d){
+    gmp_printf("n: %Zd\n", n);
+    gmp_printf("e: %Zd\n", e);
+    gmp_printf("phin: %Zd\n", phin);
+    gmp_printf("d: %Zd\n", d);
 }
